@@ -50,13 +50,6 @@ https://pro-weather-web.netlify.app/
 - **JavaScript** - Logic and API integration
 - **OpenWeatherMap API** - Weather data
 
-## 📦 Getting Started
-
-### Prerequisites
-
-- A modern web browser
-- OpenWeatherMap API key (free)
-
 ## 🌐 How It Works
 
 1. App loads weather using IP-based location (no permission needed)
