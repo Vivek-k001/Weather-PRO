@@ -41,7 +41,7 @@ https://pro-weather-web.netlify.app/
 
 ## 📸 Screenshots
 
-[Add screenshots of your app here]
+*will add later*
 
 ## 🛠️ Built With
 
