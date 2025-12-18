@@ -22,6 +22,27 @@ if (typeof API_KEY === 'undefined' || !API_KEY) {
     showError('API key not found! Please check config.js file.');
 }
 
+// Get location by IP address (no permission needed)
+async function getLocationByIP() {
+    try {
+        loading.style.display = 'block';
+        error.style.display = 'none';
+        
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        
+        if (data.latitude && data.longitude) {
+            getWeatherByCoords(data.latitude, data.longitude);
+        } else {
+            throw new Error('Could not get location from IP');
+        }
+    } catch (err) {
+        console.error('IP location error:', err);
+        showError('Could not detect location. Please search manually.');
+        loading.style.display = 'none';
+    }
+}
+
 // Get weather by city name
 async function getWeather(city) {
     if (!API_KEY) {
@@ -149,10 +170,11 @@ function displayForecast(data) {
     });
 }
 
-// Get current location
+// Get current location using GPS (asks for permission)
 function getCurrentLocation() {
     if (!navigator.geolocation) {
-        showError('Geolocation is not supported by your browser');
+        // If geolocation not supported, use IP instead
+        getLocationByIP();
         return;
     }
 
@@ -160,28 +182,24 @@ function getCurrentLocation() {
     locationBtn.textContent = '📍 Getting location...';
 
     navigator.geolocation.getCurrentPosition(
+        // Success - use precise GPS location
         (position) => {
             const lat = position.coords.latitude;
             const lon = position.coords.longitude;
             getWeatherByCoords(lat, lon);
             locationBtn.textContent = '📍 Use My Current Location';
         },
+        // Error - fallback to IP location
         (error) => {
             locationBtn.disabled = false;
             locationBtn.textContent = '📍 Use My Current Location';
             
-            switch(error.code) {
-                case error.PERMISSION_DENIED:
-                    showError('Location access denied. Please enable location permissions.');
-                    break;
-                case error.POSITION_UNAVAILABLE:
-                    showError('Location information unavailable.');
-                    break;
-                case error.TIMEOUT:
-                    showError('Location request timed out.');
-                    break;
-                default:
-                    showError('An unknown error occurred.');
+            if (error.code === error.PERMISSION_DENIED) {
+                // User denied permission, use IP location instead
+                console.log('GPS denied, using IP location');
+                getLocationByIP();
+            } else {
+                showError('Location unavailable. Please search manually.');
             }
         }
     );
@@ -218,7 +236,6 @@ function displayWeather(data) {
     
     // Additional details
     document.getElementById('visibility').textContent = `${(data.visibility / 1000).toFixed(1)} km`;
-    document.getElementById('uvIndex').textContent = 'N/A'; // UV index not available in free API
     document.getElementById('sunrise').textContent = formatTime(data.sys.sunrise);
     document.getElementById('sunset').textContent = formatTime(data.sys.sunset);
     document.getElementById('minTemp').textContent = `${Math.round(data.main.temp_min)}°C`;
@@ -256,8 +273,9 @@ cityInput.addEventListener('keypress', (e) => {
     }
 });
 
+// On page load - automatically get location using IP (no permission needed)
 window.addEventListener('load', () => {
     if (API_KEY) {
-        getCurrentLocation();
+        getLocationByIP(); // Uses IP, no pop-up!
     }
 });
