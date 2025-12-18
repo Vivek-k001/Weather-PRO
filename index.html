@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🌤️ Weather App</h1>
+        
+        <button class="location-btn" id="locationBtn">
+            📍 Use My Current Location
+        </button>
+
+        <div class="search-box">
+            <input type="text" id="cityInput" placeholder="Or enter city name..." />
+            <button id="searchBtn">Search</button>
+        </div>
+
+        <div class="error" id="error"></div>
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            Loading weather data...
+        </div>
+
+        <div class="weather-info" id="weatherInfo">
+            <div class="weather-icon" id="weatherIcon"></div>
+            
+            <div class="temperature" id="temperature"></div>
+            <div class="city-name" id="cityName"></div>
+            <div class="description" id="description"></div>
+
+            <!-- Current Weather Details -->
+            <div class="details">
+                <div class="detail-item">
+                    <div class="detail-label">Feels Like</div>
+                    <div class="detail-value" id="feelsLike"></div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Humidity</div>
+                    <div class="detail-value" id="humidity"></div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Wind Speed</div>
+                    <div class="detail-value" id="windSpeed"></div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Pressure</div>
+                    <div class="detail-value" id="pressure"></div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Visibility</div>
+                    <div class="detail-value" id="visibility"></div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">UV Index</div>
+                    <div class="detail-value" id="uvIndex"></div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Sunrise</div>
+                    <div class="detail-value" id="sunrise"></div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Sunset</div>
+                    <div class="detail-value" id="sunset"></div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Min Temp</div>
+                    <div class="detail-value" id="minTemp"></div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Max Temp</div>
+                    <div class="detail-value" id="maxTemp"></div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Cloudiness</div>
+                    <div class="detail-value" id="cloudiness"></div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Wind Direction</div>
+                    <div class="detail-value" id="windDirection"></div>
+                </div>
+            </div>
+
+            <!-- 5-Day Forecast Section -->
+            <div class="forecast-section">
+                <h2>5-Day Forecast</h2>
+                <div class="forecast-container" id="forecastContainer">
+                    <!-- Forecast cards will be inserted here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
