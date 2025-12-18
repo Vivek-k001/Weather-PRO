@@ -13,7 +13,7 @@ A clean and simple weather application that shows current weather conditions and
 
 ## 🚀 Live Demo
 
-[Add your live demo link here if hosted]
+https://pro-weather-web.netlify.app/
 
 ## 📸 Screenshots
 
